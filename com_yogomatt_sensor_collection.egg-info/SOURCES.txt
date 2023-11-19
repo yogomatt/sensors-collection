@@ -1,0 +1,7 @@
+LICENSE
+README.md
+pyproject.toml
+com_yogomatt_sensor_collection.egg-info/PKG-INFO
+com_yogomatt_sensor_collection.egg-info/SOURCES.txt
+com_yogomatt_sensor_collection.egg-info/dependency_links.txt
+com_yogomatt_sensor_collection.egg-info/top_level.txt
