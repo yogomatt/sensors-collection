@@ -24,7 +24,7 @@ def read_dht22():
   try:
       file_dir = '/home/byron/logs'
       file_exists = os.path.exists(file_dir):
-      if not exists:
+      if not file_exists:
         os.makedirs(file_dir)
 
       file_path = '{0}{1}.csv'.format(file_dir, time.strftime('%y-%m-%d'))
