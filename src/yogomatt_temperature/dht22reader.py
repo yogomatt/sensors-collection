@@ -4,12 +4,13 @@ import board
 import adafruit_dht
 import requests
 
+
 # Constants
 TEMPERATURE_REST_API_URL = 'http://192.168.0.160:8080/api/measure'
 HUMIDITY_REST_API_URL = 'http://192.168.0.160:8080/api/measure'
 
 # DHT22 Module
-def read_dht22:
+def read_dht22():
 
   # Initiate the dht device, with data pin connected to:
   dhtDevice = adafruit_dht.DHT22(board.D22, use_pulseio=False)
@@ -21,7 +22,12 @@ def read_dht22:
 
   # Init the cvs file
   try:
-      file_path = '/home/byron/my_logs/{0}.csv'.format(time.strftime('%y-%m-%d'))
+      file_dir = '/home/byron/logs'
+      file_exists = os.path.exists(file_dir):
+      if not exists:
+        os.makedirs(file_dir)
+
+      file_path = '{0}{1}.csv'.format(file_dir, time.strftime('%y-%m-%d'))
       f = open(file_path, 'a+')
       if os.stat(file_path).st_size == 0:
           f.write('Date,Time,Temperature,Humidity\r\n')
@@ -90,7 +96,3 @@ def read_dht22:
           raise error
 
       time.sleep(300.0)
-
-if __name__ == "__main__":
-  import sys
-  read_dht22()
