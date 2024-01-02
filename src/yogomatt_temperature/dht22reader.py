@@ -23,7 +23,7 @@ def read_dht22():
   # Init the cvs file
   try:
       file_dir = '/home/byron/logs'
-      file_exists = os.path.exists(file_dir):
+      file_exists = os.path.exists(file_dir)
       if not file_exists:
         os.makedirs(file_dir)
 
