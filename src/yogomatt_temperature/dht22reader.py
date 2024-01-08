@@ -27,7 +27,7 @@ def read_dht22():
       if not file_exists:
         os.makedirs(file_dir)
 
-      file_path = '{0}{1}.csv'.format(file_dir, time.strftime('%y-%m-%d'))
+      file_path = '{0}/{1}.csv'.format(file_dir, time.strftime('%y-%m-%d'))
       f = open(file_path, 'a+')
       if os.stat(file_path).st_size == 0:
           f.write('Date,Time,Temperature,Humidity\r\n')
