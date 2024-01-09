@@ -153,8 +153,8 @@ setup(
     # executes the function `main` from this package when invoked:
     entry_points={  # Optional
         "console_scripts": [
-            "yogomatt-dht22=yogomatt_temperature.command_line:read_dht22",
-            "yogomatt-ds18b20=yogomatt_temperature.command_line:read_ds18b20",
+            "yogomatt-dht22=yogomatt_temperature.command_line:dht22",
+            "yogomatt-ds18b20=yogomatt_temperature.command_line:ds18b20",
         ],
     },
     # List additional URLs that are relevant to your project as a dict.

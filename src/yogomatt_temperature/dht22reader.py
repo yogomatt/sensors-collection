@@ -2,12 +2,8 @@ import os
 import time
 import board
 import adafruit_dht
-import requests
-
-
-# Constants
-TEMPERATURE_REST_API_URL = 'http://192.168.0.160:8080/api/measure'
-HUMIDITY_REST_API_URL = 'http://192.168.0.160:8080/api/measure'
+import file_utils
+import api_utils
 
 # DHT22 Module
 def read_dht22():
@@ -21,19 +17,7 @@ def read_dht22():
   # dhtDevice = adafruit_dht.DHT22(board.D18, use_pulseio=False)
 
   # Init the cvs file
-  try:
-      file_dir = '/home/byron/logs'
-      file_exists = os.path.exists(file_dir)
-      if not file_exists:
-        os.makedirs(file_dir)
-
-      file_path = '{0}/{1}.csv'.format(file_dir, time.strftime('%y-%m-%d'))
-      f = open(file_path, 'a+')
-      if os.stat(file_path).st_size == 0:
-          f.write('Date,Time,Temperature,Humidity\r\n')
-  except Exception as error:
-      print(error.args[0])
-      raise error
+  csv_file = file_utils.init_csv_file()
 
   while True:
       try:
@@ -50,42 +34,34 @@ def read_dht22():
 
           # Store in a cvs file
           if temperature_c is not None and humidity is not None:
-              f.write('{0} {1:0.1f} C {2:0.1f}\r\n'.format(sample_time,
-                temperature_c, humidity))
+              file_utils.write_to_file(csv_file, sample_time, 'temperature', 'centigrades', temperature_c)
+              file_utils.write_to_file(csv_file, sample_time, 'temperature', 'percentage', humidity)
           else:
-              print('Failed to retrieve the sensor data')
+              print('Failed to retrieve data from sensor DHT22')
 
-          # Store in the "cloud"
-          # headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-          headers = {'Content-Type': 'application/json'}
-
-          sampleTemperature = {
-              "sampleDate": sample_time,
-              "sampleType": "temperature",
-              "deviceId": "DHT22",
-  	      "measure": {
-		  "type": "centigrades",
-            	  "value": str(temperature_c)
-	      }
+          sample_temperature = {
+            "sampleDate": sample_time,
+            "sampleType": "temperature",
+            "deviceId": "DHT22",
+  	        "measure": {
+		        "type": "centigrades",
+            	"value": str(temperature_c)
+	        }
           }
 
-          resp = requests.post(TEMPERATURE_REST_API_URL, json = sampleTemperature, headers = headers)
+          api_utils.post_sample(sample_temperature)
 
-          print(resp)
-
-          sampleHumidity = {
-              "sampleDate": sample_time,
-              "sampleType": "humidity",
-              "deviceId": "DHT22",
-              "measure": {
-		  "type": "percentage",
-           	  "value": str(humidity)
-              }
+          sample_humidity = {
+            "sampleDate": sample_time,
+            "sampleType": "humidity",
+            "deviceId": "DHT22",
+            "measure": {
+		        "type": "percentage",
+           	    "value": str(humidity)
+            }
           }
 
-          resp = requests.post(HUMIDITY_REST_API_URL, json = sampleHumidity, headers = headers)
-
-          print(resp)
+          api_utils.post_sample(sample_humidity)
       except RuntimeError as error:
           # Errors happen fairly often, DHT's are hard to read, just keep going
           print(error.args[0])

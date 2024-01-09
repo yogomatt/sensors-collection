@@ -8,11 +8,12 @@ def init_csv_file():
       if not file_exists:
         os.makedirs(file_dir)
 
-      file_path = '{0}{1}.csv'.format(file_dir, time.strftime('%y-%m-%d'))
+      file_path = '{0}/{1}.csv'.format(file_dir, time.strftime('%y-%m-%d'))
       f = open(file_path, 'a+')
       if os.stat(file_path).st_size == 0:
-          f.write('Timestamp,Measure_Type,Measure_Unit,Measure_Value\r\n')
-          return f
+        f.write('Timestamp,Measure_Type,Measure_Unit,Measure_Value\r\n')
+      
+      return f
     except Exception as error:
       print(error.args[0])
       raise error
