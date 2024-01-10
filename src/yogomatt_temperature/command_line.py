@@ -1,5 +1,5 @@
-from dht22reader import *
-from ds18b20reader import *
+from yogomatt_temperature.dht22reader import *
+from yogomatt_temperature.ds18b20reader import *
 
 def dht22():
   read_dht22()
