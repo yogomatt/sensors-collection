@@ -1,8 +1,8 @@
 import os
 import glob
 import time
-import file_utils
-import api_utils
+import yogomatt_temperature.file_utils as file_utils
+import yogomatt_temperature.api_utils as api_utils
 
 def init_device():
   os.system('modprobe w1-gpio')

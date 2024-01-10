@@ -2,8 +2,8 @@ import os
 import time
 import board
 import adafruit_dht
-import file_utils
-import api_utils
+import yogomatt_temperature.file_utils as file_utils
+import yogomatt_temperature.api_utils as api_utils
 
 # DHT22 Module
 def read_dht22():
