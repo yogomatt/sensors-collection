@@ -5,11 +5,10 @@ import logging
 # import yogomatt_temperature.file_utils as file_utils
 import yogomatt_temperature.api_utils as api_utils
 
-def __init__(self):
-  self.log = logging.getLogger(__name__)
+log = logging.getLogger('sensor')
 
-def init_device(self):
-  self.log.info('Initializing device DS18B20')
+def init_device():
+  log.info('Initializing device DS18B20')
   os.system('modprobe w1-gpio')
   os.system('modprobe w1-therm')
 
@@ -39,10 +38,10 @@ def read_temp(device_file):
     temp_f = round(temp_f, 1)
     return temp_c, temp_f
 
-def read_ds18b20(self):
+def read_ds18b20():
   device_file = init_device()
   # csv_file = file_utils.init_csv_file()
-
+  
   while True:
     try:
       sample_time = time.strftime('%Y-%m-%dT%H:%M:%S')
@@ -50,11 +49,11 @@ def read_ds18b20(self):
       
       # Store in a cvs file
       if temp_celsius is None:
-        self.log.error('Failed to retrieve data from sensor ds18b20')
+        log.error('Failed to retrieve data from sensor ds18b20')
         time.sleep(5)
         continue
       
-      self.log.info('Temperature: {0:.2f} C, {1:.2f} F'.format(temp_celsius, temp_fahrenheit))
+      log.info('Temperature: {0:.2f} C, {1:.2f} F'.format(temp_celsius, temp_fahrenheit))
       # file_utils.write_to_file(csv_file, sample_time, 'temperature', 'centigrades', temp_celsius)
 
       sample_temperature = {
@@ -69,7 +68,7 @@ def read_ds18b20(self):
 
       api_utils.post_sample(sample_temperature)
     except Exception as error:
-      self.log.error(error.args[0])
+      log.error(error.args[0])
       raise error
     
     time.sleep(300)

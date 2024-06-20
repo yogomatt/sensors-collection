@@ -6,14 +6,13 @@ import adafruit_dht
 #import yogomatt_temperature.file_utils as file_utils
 import yogomatt_temperature.api_utils as api_utils
 
-def __init__(self):
-   self.log = logging.getLogger(__name__)
+log = logging.getLogger('sensor')
 
 # DHT22 Module
-def read_dht22(self):
+def read_dht22():
 
   # Initiate the dht device, with data pin connected to:
-  self.log.info('Initiating device DHT22 in pin 22')
+  log.info('Initiating device DHT22 in pin 22')
   dhtDevice = adafruit_dht.DHT22(board.D22, use_pulseio=False)
 
   # you can pass DHT22 use_pulseio=False if you wouldn't like to use pulseio.
@@ -31,18 +30,18 @@ def read_dht22(self):
           humidity = dhtDevice.humidity
 
           if temperature_c is None:
-            self.log.error('Failed to retrieve temperature data from sensor DHT22')
+            log.error('Failed to retrieve temperature data from sensor DHT22')
             time.sleep(5)
             continue
           elif humidity is None:
-            self.log.error('Failed to retrieve humidity data from sensor DHT22')
+            log.error('Failed to retrieve humidity data from sensor DHT22')
             time.sleep(5)
             continue
           
           sample_time = time.strftime('%Y-%m-%dT%H:%M:%S')
           temperature_f = temperature_c * (9 / 5) + 32
 
-          self.log.info(
+          log.info(
               "Time: {}  Temp: {:.1f} F / {:.1f} C  Humidity: {}% ".format(
                 sample_time, temperature_f, temperature_c, humidity
               )
@@ -80,12 +79,12 @@ def read_dht22(self):
 
       except RuntimeError as error:
           # Errors happen fairly often, DHT's are hard to read, just keep going
-          self.log.error(error.args[0])
+          log.error(error.args[0])
           time.sleep(2.0)
           continue
       except Exception as error:
           dhtDevice.exit()
-          self.log.error(error.args[0])
+          log.error(error.args[0])
           raise error
 
       time.sleep(300.0)
