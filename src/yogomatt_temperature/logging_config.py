@@ -1,5 +1,5 @@
 import os
-import logging
+import logging.handlers
 
 def setup_logging():
   # Create a console and file handlers
@@ -27,6 +27,6 @@ def get_console_handler(formatter):
 
 def get_file_handler(log_dir, formatter):
   log_file = os.path.join(log_dir, "log_app.log")
-  fh = logging.handlers.RotatingFileHandler(filename=log_dir, maxBytes=1024 * 1024 * 5, backupCount=5)
+  fh = logging.handlers.RotatingFileHandler(filename=log_file, maxBytes=1024 * 1024 * 5, backupCount=5)
   fh.setFormatter(formatter)
   return fh
