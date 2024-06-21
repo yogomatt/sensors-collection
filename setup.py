@@ -130,8 +130,7 @@ setup(
     install_requires=[
         "requests",
         "adafruit-dht",
-        "adafruit-circuitpython-dht",
-	"pyyaml"
+        "adafruit-circuitpython-dht"
         ],  # Optional
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
