@@ -1,4 +1,4 @@
-from yogomatt_temperature.logging_config import *
+from yogomatt_common.logging_config import *
 from yogomatt_temperature.dht22reader import *
 from yogomatt_temperature.ds18b20reader import *
 

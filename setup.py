@@ -36,7 +36,7 @@ setup(
     # For a discussion on single-sourcing the version across setup.py and the
     # project code, see
     # https://packaging.python.org/guides/single-sourcing-package-version/
-    version="0.0.14",  # Required
+    version="0.0.15",  # Required
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#summary
@@ -153,8 +153,8 @@ setup(
     # executes the function `main` from this package when invoked:
     entry_points={  # Optional
         "console_scripts": [
-            "yogomatt-dht22=yogomatt_temperature.command_line:dht22",
-            "yogomatt-ds18b20=yogomatt_temperature.command_line:ds18b20",
+            "yogomatt-dht22=yogomatt_common.command_line:dht22",
+            "yogomatt-ds18b20=yogomatt_common.command_line:ds18b20",
         ],
     },
     # List additional URLs that are relevant to your project as a dict.
