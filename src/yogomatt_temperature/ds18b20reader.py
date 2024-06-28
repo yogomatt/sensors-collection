@@ -38,9 +38,11 @@ def read_temp(device_file):
     temp_f = round(temp_f, 1)
     return temp_c, temp_f
 
-def read_ds18b20():
+def read_ds18b20(state_on_callback, state_off_callback):
   device_file = init_device()
   # csv_file = file_utils.init_csv_file()
+
+  state_on_callback()
   
   while True:
     try:
@@ -69,6 +71,7 @@ def read_ds18b20():
       api_utils.post_sample(sample_temperature)
     except Exception as error:
       log.error(error.args[0])
+      state_off_callback()
       raise error
     
     time.sleep(300)
