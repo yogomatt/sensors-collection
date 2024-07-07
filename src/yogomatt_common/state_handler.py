@@ -28,14 +28,21 @@
 
 from gpiozero import LED
 
-led = LED(14)
+led_temperature = LED(14)
+led_proximity = LED(23)
 #button = Button(4)
 
-def turn_on_state():
-  led.on()
+def turn_on_temperature_state():
+  led_temperature.on()
 
-def turn_off_state():
-  led.off()
+def turn_off_temperature_state():
+  led_temperature.off()
+
+def turn_on_proximity_state():
+  led_proximity.on()
+
+def turn_off_proximity_state():
+  led_proximity.off()
 
 #button.when_pressed = turn_on_led
 #button.when_released = turn_off_led
